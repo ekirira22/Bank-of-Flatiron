@@ -2,12 +2,14 @@ import React, {useState} from "react";
 
 function Formcomponent ({updateTransaction}){
     const [formdata, setFormData] = useState({
-        id: 0,
+        id: null,
         date : "2024-02-04",
         description : "Enter a description",
         category : "income",
         amount : 1000
     })
+
+    // const [error, setError] = useState(false)
     
         //Handles live changes
     function handleChange(e){ 
@@ -24,7 +26,7 @@ function Formcomponent ({updateTransaction}){
         // console.log(console.table(formdata))
             //Validate
             updateTransaction(formdata)
-        
+           
     }
 
     // console.log(formdata)
