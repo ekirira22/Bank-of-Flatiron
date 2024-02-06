@@ -12,7 +12,7 @@ function Searchfilter({filteredFunction}){
         e.preventDefault()
         filteredFunction(searchValue)
     }
-    console.log(searchValue)
+    // console.log(searchValue)
     
     return (
         <div className="pt-10 mx-40">

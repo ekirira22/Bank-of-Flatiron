@@ -3,7 +3,7 @@ import React from "react";
 function Transaction(props){
 
     function handleDelete(){
-        
+        props.removeTransaction(props.id)
     }
     
     return (

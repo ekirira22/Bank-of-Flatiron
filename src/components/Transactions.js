@@ -1,14 +1,14 @@
 import React from "react";
 import Transaction from "./Transaction";
 
-function Transactions({transactions}){
+function Transactions({transactions, removeTransaction}){
         {/* 
             Loops through transactions passed as props and renders a single transaction
     */}
 
     const singleTransaction = transactions.map(transaction => {
         return (
-            <Transaction key={transaction.id} id={transaction.id} date={transaction.date} description={transaction.description} category={transaction.category} amount={transaction.amount} />
+            <Transaction key={transaction.id} id={transaction.id} date={transaction.date} description={transaction.description} category={transaction.category} amount={transaction.amount} removeTransaction={removeTransaction} />
         )
     })
     return (

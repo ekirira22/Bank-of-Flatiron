@@ -19,7 +19,7 @@ function App() {
             {/* Added setTimeout to mimic server loading after 3 seconds */}
           setTimeout(()=>{
             setLoaded(true)
-          }, 3000)
+          }, 2000)
         })
   },[filteredTransac])
 
@@ -45,12 +45,19 @@ function App() {
 
   }
 
+  function deleteTransaction(id){
+    const remainingTransactions = transactions.filter(tran => {
+      return tran.id !== id
+    })
+    setTransactions(remainingTransactions)
+  }
+
   {/* Use useEffect to fetch transactions whenever the user loads the App component.Pass the results as from the state as props to transactions to render the table*/}
 
   return (
     <div className='App'>
       <h1 className='App-header pt-10'>BANK OF FLATIRON</h1>  
-      {!isLoaded ? <p style={{color: 'green'}} >Loading Transactions ...</p> : <Transactions transactions={transactions}/>}
+      {!isLoaded ? <p style={{color: 'green'}} >Loading Transactions ...</p> : <Transactions transactions={transactions} removeTransaction={deleteTransaction}/>}
       
       <Formcomponent updateTransaction={newTransaction}/>
       <Searchfilter filteredFunction={filteredTransactions}/>
