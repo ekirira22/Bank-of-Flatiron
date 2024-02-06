@@ -20,6 +20,14 @@ HTML,Tailwind CSS, Vanilla JS, React JS
   4. A user can sort transactions alphabetically by category or description.
   5. A user can delete a transaction which will remove it from the table
 
+## Algorithmic view
+  1. Have a .App component as the main component. It will have three child components. 
+    a. TransactionsTable component that displays existing transcations in db.json using useEffects Hook
+    b. FormComponent that allows the user to add a new transcation to the table using useState, and persists the data to db.json
+    c. Have a SearchFilter component that filters data passed down as props from App and returns the filtered values
+  2. TransactionsTable component will have a Transaction component that will be a representation of the rows within the table
+  
+
 ## API Data
 Click link below to see API Data
 [API LINK](https://docs.google.com/document/d/1EWN0qLfAWfgzO1N2P8H5WmrsTx0nMkhp3s-rXVESTNA/edit?usp=sharing)
