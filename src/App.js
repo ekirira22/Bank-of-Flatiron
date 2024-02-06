@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import './App.css';
 import Transactions from './components/Transactions'
+import Formcomponent from './components/Formcomponent'
 
 
 function App() {
@@ -13,21 +14,31 @@ function App() {
       .then(res => res.json())
         .then(res => {
           setTransactions(res)
-          setLoaded(true)
+            {/* Added setTimeout to mimic server loading after 3 seconds */}
+          setTimeout(()=>{
+            setLoaded(true)
+          }, 3000)
         })
-  },[])
+  },[setTransactions])
 
-  {
-    /* 
-      Use useEffect to fetch transactions whenever the user loads the App component.
-      Pass the results as from the state as props to transactions to render the table
-    */
+  function newTransaction(data){
+      //Assign a new ID
+    const id = parseInt(transactions.length + 1)
+    data.id = id
+
+    const newArr = [...transactions, data]
+      //set Items to update
+    setTransactions(newArr)
   }
+
+  {/* Use useEffect to fetch transactions whenever the user loads the App component.Pass the results as from the state as props to transactions to render the table*/}
 
   return (
     <div className='App'>
       <h1 className='App-header pt-10'>BANK OF FLATIRON</h1>  
-      {!isLoaded ? <p>Loading Transactions ...</p> : <Transactions transactions={transactions}/>}
+      {!isLoaded ? <p style={{color: 'green'}} >Loading Transactions ...</p> : <Transactions transactions={transactions}/>}
+      
+      <Formcomponent updateTransaction={newTransaction}/>
       
     </div>
   );

@@ -1,7 +1,7 @@
 import React from "react";
 
 function Transaction(props){
-    console.log(props)
+    
     return (
         <tr>
             <td className="border border-slate-700">{props.id}</td>
