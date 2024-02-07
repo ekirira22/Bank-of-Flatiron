@@ -12,15 +12,19 @@ function App() {
   const [filteredTransac, setFilteredTransac] = useState(false)
 
   useEffect(() => {
-    fetch(API)
+    try{
+      fetch(API)
       .then(res => res.json())
         .then(res => {
           setTransactions(res)
             {/* Added setTimeout to mimic server loading after 3 seconds */}
           setTimeout(()=>{
             setLoaded(true)
-          }, 2000)
+          }, 2500)
         })
+    }catch(error){
+      console.log(error)
+    }
   },[filteredTransac])
 
   function newTransaction(data){
