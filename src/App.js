@@ -7,23 +7,33 @@ import Searchfilter from './components/Searchfilter'
 
 function App() {
   const API = "http://localhost:3000/transactions";
+    //State to hold transactions
   const [transactions, setTransactions] = useState([])
   const [isLoaded, setLoaded] = useState(false)
-  const [filteredTransac, setFilteredTransac] = useState(false)
+    //gets term from search component
+  const [searchValue, setSearchValue] = useState('')
 
+    //Use effect hook to run initially when the component mounts
   useEffect(() => {
-    fetch(API)
-      .then(res => res.json())
-        .then(res => {
-          setTransactions(res)
-            {/* Added setTimeout to mimic server loading after 3 seconds */}
-          setTimeout(()=>{
-            setLoaded(true)
-          }, 2000)
-        })
-  },[filteredTransac])
+   fetchTransaction()
+  },[])
 
-  function newTransaction(data){
+    //Fetch Transaction in an asynchronous manner
+  const fetchTransaction = async () => {
+    try{
+      const response = await fetch(API)
+      const data = await response.json()
+      setTransactions(data)
+        /* Added setTimeout to mimic server loading after 2.5 seconds */
+      setTimeout(()=>{
+        setLoaded(true)
+      }, 2500)
+    }catch(e){
+      console.log(e)
+    }
+  }
+
+  const newTransaction = (data) => {
       //Assign a new ID
     const id = parseInt(transactions.length + 1)
     data.id = id
@@ -33,19 +43,16 @@ function App() {
     setTransactions(newArr)
   }
 
-  function filteredTransactions(value){
-    const val = value.replace(/^[0-9\s]*|[+*\r\n]/g, '').toLowerCase()
-      const filteredTransaction = transactions.filter(tran => {
-        return tran.description.toLowerCase() == val
-      })
-      if(filteredTransaction.length < 1){
-        setFilteredTransac(!filteredTransac)
-      }
-      setTransactions(filteredTransaction)
-
+    //callback function for receiving search value from Search component and setting it to the searchValue state
+  const searchTransaction = async (value) => {
+    setSearchValue(value.replace(/[^a-zA-Z0-9]/g, '').toLowerCase())
   }
+    //Filter transactions and pass value to the Transactions component
+  const filteredTransactions = transactions.filter((transaction) => {
+    return transaction.description.toLowerCase().includes(searchValue)
+  })
 
-  function deleteTransaction(id){
+  const deleteTransaction = (id) => {
     const remainingTransactions = transactions.filter(tran => {
       return tran.id !== id
     })
@@ -57,12 +64,11 @@ function App() {
   return (
     <div className='App'>
       <h1 className='App-header pt-10'>BANK OF FLATIRON</h1>  
-      {!isLoaded ? <p style={{color: 'green'}} >Loading Transactions ...</p> : <Transactions transactions={transactions} removeTransaction={deleteTransaction}/>}
+      <Searchfilter searchFunction={searchTransaction}/>
+
+      {!isLoaded ? <p style={{color: 'green'}} >Loading Transactions ...</p> : <Transactions transactions={filteredTransactions} removeTransaction={deleteTransaction}/>}
       
       <Formcomponent updateTransaction={newTransaction}/>
-      <Searchfilter filteredFunction={filteredTransactions}/>
-
-      
     </div>
   );
 }

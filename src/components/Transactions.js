@@ -13,7 +13,7 @@ function Transactions({transactions, removeTransaction}){
     })
     return (
         <div>
-            <h3 className="text-lg">Current Transactions</h3>
+            <h3 className="text-2xl text-cyan-400">Current Transactions</h3>
             <table className="table-auto container mx-auto px-4 border-separate border border-slate-500 ...">
                 <thead>
                     <tr>

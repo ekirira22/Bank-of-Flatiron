@@ -33,7 +33,7 @@ function Formcomponent ({updateTransaction}){
 
     return (
         <div className="pt-10 mx-40">
-            <h3>Add a Transaction </h3>
+            <h3 className="text-2xl text-cyan-400">Add a Transaction </h3>
             <form className="mt-5 my-2">
                 <label className="block">
                     <span className="block text-sm font-medium text-white">Enter Date of Transaction</span>
