@@ -1,28 +1,27 @@
-import React, {useState} from "react";
+import {useState} from "react";
 
-function Searchfilter({filteredFunction}){
+function Searchfilter({searchFunction}){
 
     const [searchValue, setSearchValue] = useState('')
 
-    function handleChange(e){
-        setSearchValue(e.target.value)
+    const handleChange = (e) => {
+            //captures live form input and sets it to searchValue state
+        const value = e.target.value
+        setSearchValue(value)
+            //Passes the value up to the parent .App component
+        searchFunction(searchValue)
     }
 
-    function handleSearch(e){
-        e.preventDefault()
-        filteredFunction(searchValue)
-    }
     // console.log(searchValue)
     
     return (
         <div className="pt-10 mx-40">
             <h3>Search Items </h3>
-            <form className="mt-5 my-2">
-                <label className="block">
-                    <input type="search" name="date" className="input-form" onChange={handleChange} placeholder="Search Transaction..."></input>  
+            <div className="mt-5 my-2">
+                <label>
+                    <input type="search" name="date" className="input-form" onChange={handleChange} placeholder="Search Transaction..." value={searchValue}></input>  
                 </label>
-                <button className="rounded-full bg-red-500 px-4 py-1 mt-2 text-lg" onClick={handleSearch}>Filter</button>
-            </form>
+            </div>
         </div>
     )
 }

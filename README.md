@@ -22,10 +22,13 @@ HTML,Tailwind CSS, Vanilla JS, React JS
 
 ## Algorithmic view
   1. Have a .App component as the main component. It will have three child components. 
-    a. TransactionsTable component that displays existing transcations in db.json using useEffects Hook
-    b. FormComponent that allows the user to add a new transcation to the table using useState, and persists the data to db.json
-    c. Have a SearchFilter component that filters data passed down as props from App and returns the filtered values
-  2. TransactionsTable component will have a Transaction component that will be a representation of the rows within the table
+  2. TransactionsTable component that displays existing transcations in db.json using useEffects Hook
+  3. FormComponent that allows the user to add a new transcation to the table using useState, and persists the data to db.json
+  4. Have a SearchFilter component that filters data passed down as props from App and returns the filtered values
+  5. TransactionsTable component will have a Transaction component that will be a representation of the rows within the table
+
+## Relationships
+  APP (Parent component) : will be responsible for maintaing of state and prop sharing -> Children(see components)
   
 
 ## API Data
