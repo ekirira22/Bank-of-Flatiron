@@ -13,6 +13,7 @@ function App() {
     //gets term from search component
   const [searchValue, setSearchValue] = useState('')
   const [errors, setErrors] = useState('')
+  const [editFormData, setEditFormData] = useState({})
 
     //Use effect hook to run initially when the component mounts
   useEffect(() => {
@@ -99,6 +100,44 @@ function App() {
     }
   }
 
+  const findEditData = (id) => {
+    try{
+      const transaction = transactions.filter(transaction => {
+        return transaction.id === id
+      })
+
+      // 
+      setEditFormData(transaction)
+
+    }catch(error){
+      const errorMessage = `Error Message : ${error}`
+      setErrors(errorMessage)
+    }
+  }
+
+  const handleEdit = async(data) => {
+    try{
+        //Update component
+        const myTransactions = transactions.map(trans => {
+          if(trans.id === data.id){
+            return data
+          }else{
+            return trans
+          }
+        })
+        setTransactions(myTransactions)
+
+        //UPDATE from json
+      const url = `${API}/${data.id}`
+      const method = 'PATCH'
+      await fetchTransaction(url,method,data)
+      
+    }catch(error){
+        const errorMessage = `Error Message : ${error}`
+        setErrors(errorMessage)
+    }
+  }
+
   {/* Use useEffect to fetch transactions whenever the user loads the App component.Pass the results as from the state as props to transactions to render the table*/}
 
   return (
@@ -107,9 +146,9 @@ function App() {
       <h1 className='App-header pt-10'>BANK OF FLATIRON</h1>  
       <Searchfilter searchFunction={searchTransaction}/>
 
-      {!isLoaded ? <p style={{color: 'green'}} >Loading Transactions ...</p> : <Transactions transactions={filteredTransactions} onDelete={handleDelete}/>}
+      {!isLoaded ? <p style={{color: 'green'}} >Loading Transactions ...</p> : <Transactions transactions={filteredTransactions} onDelete={handleDelete} onEdit={findEditData}/>}
       
-      <Formcomponent onAdd={newTransaction}/>
+      <Formcomponent onAdd={newTransaction} onEdit={handleEdit} editFormData={editFormData}/>
     </div>
   );
 }

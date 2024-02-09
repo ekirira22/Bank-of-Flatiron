@@ -12,15 +12,25 @@ function Searchfilter({searchFunction}){
         searchFunction(searchValue)
     }
 
+    const handleSort = () => {
+
+    }
+
     // console.log(searchValue)
     
     return (
-        <div className="pt-10 mx-40">
+        <div className="pt-10 mx-40 space-y-2">
             <h3>Search Items </h3>
             <div className="mt-5 my-2">
                 <label>
                     <input type="search" name="date" className="input-form" onChange={handleChange} placeholder="Search by description or category..." value={searchValue}></input>  
                 </label>
+            </div>
+            <div className="inline-flex justify-between space-x-4 md:space-x-6">
+                <button className="rounded-full bg-cyan-500 px-3  py-1" onClick={()=> handleSort(null)}>Clear Sort</button>
+                <button className="rounded-full bg-cyan-500 px-3  py-1" onClick={()=> handleSort(null)}>Sort By Category</button>
+                <button className="rounded-full bg-cyan-500 px-3  py-1" onClick={()=> handleSort(null)}>Sort By Description</button>
+
             </div>
         </div>
     )
