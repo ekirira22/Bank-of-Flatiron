@@ -1,65 +1,70 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 
-function Formcomponent ({updateTransaction}){
+function Formcomponent ({onAdd}){
+        //Set a use Effect that will do the following, while tracking any changes to the state
+        //Form component receives the state of the form and its callback function based on user selection. Add or edit. Add by default
+        //Set the form values to empty values if formState = 'add' and values fetched from database if formState = 'edit'
+        //Once the submit button is clicked. Clear the values / Hide the Form / Redirect to Home page
     const [formdata, setFormData] = useState({
-        id: null,
-        date : "2024-02-04",
-        description : "Enter a description",
-        category : "income",
-        amount : 1000
+        date : '',
+        description : '',
+        category : '',
+        amount : ''
     })
-
-    // const [error, setError] = useState(false)
+        //Form change tracker
     
         //Handles live changes
-    function handleChange(e){ 
-        const name = e.target.name
-        const val = e.target.value
+    const handleChange = (e) => { 
+        // const {name, val} = e.target
+        const {name, value} = e.target;
+
         setFormData({
             ...formdata,
-            [name] : val
+            [name] : value
         })
     }
-
-    function handleSubmit(e){
+    const handleSubmit = (e) => {
         e.preventDefault()
-        // console.log(console.table(formdata))
-            //Validate
-            updateTransaction(formdata)
-           
+        onAdd(formdata)
+            //Reset Form
+        setFormData({
+            date : '',
+            description : '',
+            category : '',
+            amount : ''
+        })           
     }
 
     // console.log(formdata)
 
     return (
         <div className="pt-10 mx-40">
-            <h3 className="text-2xl text-cyan-400">Add a Transaction </h3>
-            <form className="mt-5 my-2">
-                <label className="block">
-                    <span className="block text-sm font-medium text-white">Enter Date of Transaction</span>
-                    <input type="date" name="date" className="input-form" onChange={handleChange} defaultValue={formdata.date}></input>  
-                </label>
-                <label className="block">
-                    <span className="block text-sm font-medium text-white">Enter Description</span>
-                    <input type="text" name="description" className="input-form" defaultValue={formdata.description} onChange={handleChange}></input>  
-                </label> 
-                <label className="block">
-                    <span className="block text-sm font-medium text-white">Enter Category</span>
-                    <select name="category" className="input-form" onChange={handleChange}>
-                        <option value='Housing'>Housing</option>
-                        <option value='Entertainment'>Entertainment</option>
-                        <option value='Transportation'>Transportation</option>
-                        <option value='Gift'>Gift</option>
-                        <option value='Fashion'>Fashion</option>
-                        <option value='Food'>Food</option>
-                        <option value='Income'>Income</option>
-                    </select> 
-                </label> 
-                <label className="block">
-                    <span className="block text-sm font-medium text-white">Enter Amount</span>
-                    <input type="number" name="amount" className="input-form" placeholder="Enter amount" onChange={handleChange} defaultValue={formdata.amount}></input>  
-                </label> 
-                <button className="rounded-full bg-cyan-500 px-4 py-1 mt-2 text-lg" onClick={handleSubmit}>SAVE</button>
+            <h3 className="text-2xl text-cyan-400">Add / Edit Transaction </h3>
+            <form className="mt-5 my-2" onSubmit={handleSubmit}>
+                <label className="block text-sm font-medium text-white" htmlFor="date">Enter Date of Transaction</label>
+                <input type="date" name="date" id="date" className="input-form" defaultValue={formdata.date} onChange={handleChange} required /> 
+
+                <label className="block text-sm font-medium text-white" htmlFor="description">Enter description</label>
+                <input type="text" name="description" id="description" className="input-form" defaultValue={formdata.description} onChange={handleChange} required /> 
+
+                
+                <label className="block text-sm font-medium text-white" htmlFor="category">Enter Category</label>
+                <select name="category" id="category" className="input-form" onChange={handleChange} defaultValue={formdata.category} required>
+                    <option value='' disabled>-- Select Category --</option>
+                    <option value='Housing'>Housing</option>
+                    <option value='Entertainment'>Entertainment</option>
+                    <option value='Transportation'>Transportation</option>
+                    <option value='Gift'>Gift</option>
+                    <option value='Fashion'>Fashion</option>
+                    <option value='Food'>Food</option>
+                    <option value='Income'>Income</option>
+                </select> 
+
+                <label className="block text-sm font-medium text-white" htmlFor="number">Enter Amount</label>
+                <input type="number" name="amount" id="amount" className="input-form" defaultValue={formdata.date} onChange={handleChange} required /> 
+
+                <br></br>
+                <button type="submit" className="rounded-full bg-cyan-500 px-4 py-1 mt-2 text-lg">SAVE</button>
             </form>
         </div>
     )

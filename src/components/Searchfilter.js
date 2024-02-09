@@ -19,7 +19,7 @@ function Searchfilter({searchFunction}){
             <h3>Search Items </h3>
             <div className="mt-5 my-2">
                 <label>
-                    <input type="search" name="date" className="input-form" onChange={handleChange} placeholder="Search Transaction..." value={searchValue}></input>  
+                    <input type="search" name="date" className="input-form" onChange={handleChange} placeholder="Search by description or category..." value={searchValue}></input>  
                 </label>
             </div>
         </div>

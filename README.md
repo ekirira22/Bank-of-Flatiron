@@ -5,10 +5,12 @@ Eric Maranga - Moringa School
 ## Installation 
   1. Git clone this repository to your working directory
   2. Download tailwind dependencies. This project runs on tailwind css and vanilla JS
-  3. `npm install tailwindcss` to install tailwind on your root directory
-  4. Launch project from live server to use
+  3. `npm install` to install all dependecies needed for this project
+  4. Launch project from live server using `npm start` to run on port 3000
+  5. Run `npm run watch` to track live changes to tailwind css
+  6. Run `npm serve` to watch db.json file on port 4000
      **NB:**
-     Whenever you make a change to css remember to compile it using  npm run build-css . See tailwind.config.js for more
+     Whenever you make a change to css remember to compile it using  npm run build-css if you're not running `npm run watch` . See tailwind.config.js for more
      
 ## Tech Stack
 HTML,Tailwind CSS, Vanilla JS, React JS
@@ -16,7 +18,7 @@ HTML,Tailwind CSS, Vanilla JS, React JS
 ## User Stories
   1. A user can see a table of all transactions.
   2. A user can fill out and submit the form to add a new transaction. This should add the new transaction to the table * the new transaction does not have to be persisted to the backend *
-  3. A user can filter transactions by typing into the search bar. Only transactions with a description matching the search term should be shown in the transactions table.
+  3. A user can filter transactions by typing into the search bar. Only transactions with a description and category matching the search term should be shown in the transactions table.
   4. A user can sort transactions alphabetically by category or description.
   5. A user can delete a transaction which will remove it from the table
 

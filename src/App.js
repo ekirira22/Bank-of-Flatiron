@@ -6,69 +6,110 @@ import Searchfilter from './components/Searchfilter'
 
 
 function App() {
-  const API = "http://localhost:3000/transactions";
+  const API = "http://localhost:4000/transactions";
     //State to hold transactions
   const [transactions, setTransactions] = useState([])
   const [isLoaded, setLoaded] = useState(false)
     //gets term from search component
   const [searchValue, setSearchValue] = useState('')
+  const [errors, setErrors] = useState('')
 
     //Use effect hook to run initially when the component mounts
   useEffect(() => {
-   fetchTransaction()
-  },[])
-
-    //Fetch Transaction in an asynchronous manner
-  const fetchTransaction = async () => {
-    try{
-      const response = await fetch(API)
-      const data = await response.json()
+   const data = fetchTransaction(API,"GET")
+    //Returns a promise
+    data.then(data => {
       setTransactions(data)
-        /* Added setTimeout to mimic server loading after 2.5 seconds */
-      setTimeout(()=>{
-        setLoaded(true)
-      }, 2500)
-    }catch(e){
-      console.log(e)
+          /* Added setTimeout to mimic server loading after 1.5 seconds */
+        setTimeout(()=>{
+          setLoaded(true)
+        }, 1500)
+    })
+    },[])
+
+    //Fetch Transaction in an asynchronous manner // Modularized function
+  const fetchTransaction = async (url,method,dataObj=null) => {
+    const fetchObject = {
+      method: method,
+      headers: {
+        "Content-Type": "application/json",
+      }
+    }
+    try{
+        if(dataObj !== null){
+          fetchObject.body = JSON.stringify(dataObj)
+        }
+        const response = await fetch(url,fetchObject)
+          //Check if response is okay or not
+        if(!response.ok){
+          const errorMessage = `Error Message : ${response} : ${response.message}`
+          setErrors(errorMessage)
+        }
+        const data = await response.json()
+        return data
+
+    }catch(error){
+        const errorMessage = `Error Message : ${error}`
+        setErrors(errorMessage)
     }
   }
 
-  const newTransaction = (data) => {
-      //Assign a new ID
-    const id = parseInt(transactions.length + 1)
-    data.id = id
-
-    const newArr = [...transactions, data]
-      //set Items to update
-    setTransactions(newArr)
+  const newTransaction = async(data) => {
+      //Since we need to get the new ID . Log to the DB first // Then update State
+    try{
+        const url = API
+        const method = "POST"
+        const updatedTransaction = await fetchTransaction(url,method,data)
+          //Update current transactions component
+        setTransactions([...transactions, updatedTransaction])
+    }catch(error){
+        const errorMessage = `Error Message : ${error}`
+        setErrors(errorMessage)
+    }
   }
 
     //callback function for receiving search value from Search component and setting it to the searchValue state
   const searchTransaction = async (value) => {
     setSearchValue(value.replace(/[^a-zA-Z0-9]/g, '').toLowerCase())
   }
-    //Filter transactions and pass value to the Transactions component
+
+    //Filter transactions and pass value to the Transactions component //Filters based on category or description
   const filteredTransactions = transactions.filter((transaction) => {
-    return transaction.description.toLowerCase().includes(searchValue)
+    if(transaction.description.toLowerCase().includes(searchValue) || transaction.category.toLowerCase().includes(searchValue)){
+      return true
+    }
   })
 
-  const deleteTransaction = (id) => {
-    const remainingTransactions = transactions.filter(tran => {
-      return tran.id !== id
-    })
-    setTransactions(remainingTransactions)
+  const handleDelete = async(id) => {
+    try{
+          //Update component
+        const myTransactions = transactions.filter(transaction => {
+          return transaction.id !== id
+        })
+        
+        setTransactions(myTransactions)
+
+          //Delete from json
+        const url = `${API}/${id}`
+        const method = 'DELETE'
+        await fetchTransaction(url,method)
+    }catch(error){
+        const errorMessage = `Error Message : ${error}`
+        setErrors(errorMessage)
+    }
   }
 
   {/* Use useEffect to fetch transactions whenever the user loads the App component.Pass the results as from the state as props to transactions to render the table*/}
 
   return (
     <div className='App'>
+      {errors.length > 0 ? <p className='text-red-500 font-bold text-2xl'>{errors}</p> : null}
       <h1 className='App-header pt-10'>BANK OF FLATIRON</h1>  
       <Searchfilter searchFunction={searchTransaction}/>
 
-      {!isLoaded ? <p style={{color: 'green'}} >Loading Transactions ...</p> : <Transactions transactions={filteredTransactions} removeTransaction={deleteTransaction}/>}
+      {!isLoaded ? <p style={{color: 'green'}} >Loading Transactions ...</p> : <Transactions transactions={filteredTransactions} onDelete={handleDelete}/>}
       
-      <Formcomponent updateTransaction={newTransaction}/>
+      <Formcomponent onAdd={newTransaction}/>
     </div>
   );
 }
