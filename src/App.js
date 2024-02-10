@@ -16,7 +16,7 @@ function App() {
   const [editFormData, setEditFormData] = useState({})
   const [toggleForm, setToggleForm] = useState(false)
 
-  console.log(toggleForm)
+  // console.log(toggleForm)
 
     //Use effect hook to run initially when the component mounts
   useEffect(() => {
@@ -104,6 +104,7 @@ function App() {
   }
 
   const findEditData = (id) => {
+    setToggleForm(true)
     try{
       const transaction = transactions.filter(transaction => {
         return transaction.id === id
@@ -149,7 +150,7 @@ function App() {
       <h1 className='App-header pt-10'>BANK OF FLATIRON</h1>  
       <Searchfilter searchFunction={searchTransaction} toggleForm={setToggleForm}/>
 
-      {toggleForm ? <Formcomponent onAdd={newTransaction} onEdit={handleEdit} editFormData={editFormData} toggleForm={setToggleForm}/> : null}
+      {toggleForm ? <Formcomponent onAdd={newTransaction} onEdit={handleEdit} editFormData={editFormData} toggleForm={setToggleForm} clearFormData={setEditFormData}/> : null}
 
 
       {!isLoaded ? <p style={{color: 'green'}} >Loading Transactions ...</p> : <Transactions transactions={filteredTransactions} onDelete={handleDelete} onEdit={findEditData}/>}

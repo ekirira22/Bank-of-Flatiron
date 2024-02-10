@@ -1,14 +1,12 @@
 import React, {useEffect, useState} from "react";
 
-function Formcomponent ({onAdd, onEdit, editFormData, toggleForm}){
+function Formcomponent ({onAdd, onEdit, editFormData, toggleForm, clearFormData}){
         //Set a use Effect that will do the following, while tracking any changes to the state
         //Form component receives the state of the form and its callback function based on user selection. Add or edit. Add by default
         //Set the form values to empty values if formState = 'add' and values fetched from database if formState = 'edit'
         //Once the submit button is clicked. Clear the values / Hide the Form / Redirect to Home page
-        
-    const [formdata, setFormData] = useState({
-        
-    })
+    
+    const [formdata, setFormData] = useState({})
     useEffect(() => {
         if(editFormData.length === undefined){
             setFormData({
@@ -48,6 +46,7 @@ function Formcomponent ({onAdd, onEdit, editFormData, toggleForm}){
             category : '',
             amount : ''
         })
+            //After submitiing, hide the form
         toggleForm(false)       
     }
 
@@ -63,7 +62,9 @@ function Formcomponent ({onAdd, onEdit, editFormData, toggleForm}){
             category : '',
             amount : ''
         })
-        toggleForm(false)       
+        toggleForm(false)
+            //Resets the state of the form from edit to add
+        clearFormData({})
     }
 
     // console.log(formdata)

@@ -3,8 +3,9 @@ import {useState} from "react";
 function Searchfilter({searchFunction, toggleForm}){
 
     const [searchValue, setSearchValue] = useState('')
-    let switcher = false
+    const [toggleState, setToggleState] = useState(false)
 
+   
     const handleChange = (e) => {
             //captures live form input and sets it to searchValue state
         const value = e.target.value
@@ -15,6 +16,11 @@ function Searchfilter({searchFunction, toggleForm}){
 
     const handleSort = () => {
 
+    }
+
+    const toggle = () => {
+        setToggleState(!toggleState)
+        toggleForm(toggleState)
     }
     // console.log(searchValue)
     
@@ -30,7 +36,7 @@ function Searchfilter({searchFunction, toggleForm}){
                 <button className="rounded-full bg-cyan-500 px-3  py-1" onClick={()=> handleSort(null)}>Clear Sort</button>
                 <button className="rounded-full bg-cyan-500 px-3  py-1" onClick={()=> handleSort(null)}>Sort By Category</button>
                 <button className="rounded-full bg-cyan-500 px-3  py-1" onClick={()=> handleSort(null)}>Sort By Description</button>
-                <button className="rounded-full bg-cyan-500 px-3  py-1" onClick={()=> toggleForm(!switcher)}>Toggle Form</button>
+                <button className="rounded-full bg-cyan-500 px-3  py-1" onClick={toggle}>Toggle Form</button>
 
             </div>
         </div>
