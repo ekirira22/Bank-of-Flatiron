@@ -17,7 +17,7 @@ HTML,Tailwind CSS, Vanilla JS, React JS
 
 ## User Stories
   1. A user can see a table of all transactions.
-  2. A user can fill out and submit the form to add a new transaction. This should add the new transaction to the table * the new transaction does not have to be persisted to the backend *
+  2. A user can fill out and submit the form to add a new transaction. This should add the new transaction to the table * the new transaction does not have to be persisted to the backend * The user can edit transactions on the same form
   3. A user can filter transactions by typing into the search bar. Only transactions with a description and category matching the search term should be shown in the transactions table.
   4. A user can sort transactions alphabetically by category or description.
   5. A user can delete a transaction which will remove it from the table
