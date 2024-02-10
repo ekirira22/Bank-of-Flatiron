@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 
-function Formcomponent ({onAdd, onEdit, editFormData}){
+function Formcomponent ({onAdd, onEdit, editFormData, toggleForm}){
         //Set a use Effect that will do the following, while tracking any changes to the state
         //Form component receives the state of the form and its callback function based on user selection. Add or edit. Add by default
         //Set the form values to empty values if formState = 'add' and values fetched from database if formState = 'edit'
@@ -9,9 +9,6 @@ function Formcomponent ({onAdd, onEdit, editFormData}){
     const [formdata, setFormData] = useState({
         
     })
-
-    console.log(editFormData.length === undefined)
-
     useEffect(() => {
         if(editFormData.length === undefined){
             setFormData({
@@ -50,7 +47,8 @@ function Formcomponent ({onAdd, onEdit, editFormData}){
             description : '',
             category : '',
             amount : ''
-        })           
+        })
+        toggleForm(false)       
     }
 
     const handleEdit = (e) => {
@@ -64,7 +62,8 @@ function Formcomponent ({onAdd, onEdit, editFormData}){
             description : '',
             category : '',
             amount : ''
-        })          
+        })
+        toggleForm(false)       
     }
 
     // console.log(formdata)
@@ -87,7 +86,8 @@ function Formcomponent ({onAdd, onEdit, editFormData}){
                 <input type="number" name="amount" id="amount" className="input-form" defaultValue={formdata.amount} onChange={handleChange} required /> 
 
                 <br></br>
-                <button type="submit" className="rounded-full bg-cyan-500 px-4 py-1 mt-2 text-sm">{editFormData.length > 0 ? "EDIT TRANSACTION" : "ADD TRANSACTION"}</button>
+                <button type="reset" className="rounded-full bg-yellow-500 px-4 py-1 mt-2 mx-2 text-sm">RESET</button>
+                <button type="submit" className="rounded-full bg-cyan-500 px-4 py-1 mt-2 mx-2 text-sm">{editFormData.length > 0 ? "EDIT TRANSACTION" : "ADD TRANSACTION"}</button>
             </form>
         </div>
     )

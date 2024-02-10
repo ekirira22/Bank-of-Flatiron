@@ -14,6 +14,9 @@ function App() {
   const [searchValue, setSearchValue] = useState('')
   const [errors, setErrors] = useState('')
   const [editFormData, setEditFormData] = useState({})
+  const [toggleForm, setToggleForm] = useState(false)
+
+  console.log(toggleForm)
 
     //Use effect hook to run initially when the component mounts
   useEffect(() => {
@@ -131,7 +134,7 @@ function App() {
       const url = `${API}/${data.id}`
       const method = 'PATCH'
       await fetchTransaction(url,method,data)
-      
+
     }catch(error){
         const errorMessage = `Error Message : ${error}`
         setErrors(errorMessage)
@@ -144,11 +147,13 @@ function App() {
     <div className='App'>
       {errors.length > 0 ? <p className='text-red-500 font-bold text-2xl'>{errors}</p> : null}
       <h1 className='App-header pt-10'>BANK OF FLATIRON</h1>  
-      <Searchfilter searchFunction={searchTransaction}/>
+      <Searchfilter searchFunction={searchTransaction} toggleForm={setToggleForm}/>
+
+      {toggleForm ? <Formcomponent onAdd={newTransaction} onEdit={handleEdit} editFormData={editFormData} toggleForm={setToggleForm}/> : null}
+
 
       {!isLoaded ? <p style={{color: 'green'}} >Loading Transactions ...</p> : <Transactions transactions={filteredTransactions} onDelete={handleDelete} onEdit={findEditData}/>}
       
-      <Formcomponent onAdd={newTransaction} onEdit={handleEdit} editFormData={editFormData}/>
     </div>
   );
 }
