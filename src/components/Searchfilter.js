@@ -1,6 +1,6 @@
 import {useState} from "react";
 
-function Searchfilter({searchFunction, toggleForm}){
+function Searchfilter({searchFunction, toggleForm, onSort}){
 
     const [searchValue, setSearchValue] = useState('')
     const [toggleState, setToggleState] = useState(false)
@@ -12,10 +12,6 @@ function Searchfilter({searchFunction, toggleForm}){
         setSearchValue(value)
             //Passes the value up to the parent .App component
         searchFunction(searchValue)
-    }
-
-    const handleSort = () => {
-
     }
 
     const toggle = () => {
@@ -33,9 +29,9 @@ function Searchfilter({searchFunction, toggleForm}){
                 </label>
             </div>
             <div className="inline-flex justify-between space-x-4 md:space-x-6">
-                <button className="rounded-full bg-cyan-500 px-3  py-1" onClick={()=> handleSort(null)}>Clear Sort</button>
-                <button className="rounded-full bg-cyan-500 px-3  py-1" onClick={()=> handleSort(null)}>Sort By Category</button>
-                <button className="rounded-full bg-cyan-500 px-3  py-1" onClick={()=> handleSort(null)}>Sort By Description</button>
+                <button className="rounded-full bg-cyan-500 px-3  py-1" onClick={()=> onSort(null)}>Clear Sort</button>
+                <button className="rounded-full bg-cyan-500 px-3  py-1" onClick={()=> onSort('category')}>Sort By Category</button>
+                <button className="rounded-full bg-cyan-500 px-3  py-1" onClick={()=> onSort('description')}>Sort By Description</button>
                 <button className="rounded-full bg-cyan-500 px-3  py-1" onClick={toggle}>Toggle Form</button>
 
             </div>

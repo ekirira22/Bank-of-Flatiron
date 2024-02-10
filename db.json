@@ -5,7 +5,7 @@
       "date": "2019-12-01",
       "description": "Paycheck from Bob's Burgers",
       "category": "Income",
-      "amount": "10000"
+      "amount": "1000"
     },
     {
       "id": 2,
@@ -19,7 +19,7 @@
       "date": "2019-12-04",
       "description": "Sunglasses, Urban Outfitters",
       "category": "Fashion",
-      "amount": -24.99
+      "amount": "23.01"
     },
     {
       "id": 5,
@@ -68,7 +68,7 @@
       "date": "2019-12-16",
       "description": "MTA Vending Machine: MetroCard",
       "category": "Transportation",
-      "amount": -116.39
+      "amount": "-114.39"
     },
     {
       "id": 12,
@@ -92,20 +92,6 @@
       "id": 14
     },
     {
-      "date": "2024-02-14",
-      "description": "Old movie",
-      "category": "Entertainment",
-      "amount": "12",
-      "id": 15
-    },
-    {
-      "date": "2024-02-14",
-      "description": "Old movie",
-      "category": "Entertainment",
-      "amount": "12",
-      "id": 16
-    },
-    {
       "date": "2022-07-09",
       "description": "Office lunch",
       "category": "Food",
@@ -120,18 +106,18 @@
       "id": 18
     },
     {
-      "date": "2024-02-01",
-      "description": "Mellonss",
-      "category": "Food",
-      "amount": "12",
-      "id": 19
-    },
-    {
       "date": "2024-01-31",
       "description": "Moringa Fee",
       "category": "Education",
       "amount": "175000",
       "id": 20
+    },
+    {
+      "date": "2024-02-11",
+      "description": "Accommodation on Thursday",
+      "category": "Accommodation",
+      "amount": "35000",
+      "id": 21
     }
   ]
 }

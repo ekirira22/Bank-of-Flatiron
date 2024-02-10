@@ -142,13 +142,37 @@ function App() {
     }
   }
 
+    //Function for handling sort
+  const handleSort = (type) => {
+
+    if(type === null){
+        //Sets type to null if they match with current state
+      const myTransactions = [...transactions]
+      setTransactions(myTransactions)
+    }else{
+        //If sort type is not null? setSortType = type
+        //Make a copy of the existing array iof objects
+      const sortedTransactions = [...transactions]
+        //if sortType has been set and equal to type
+          //a -> captures the current state of the array in terms of arrangement
+          //b -> shows it the new incoming mode of arrangement
+          //a.category will hold it in descending order by default
+          //b.category switches it to ascending
+          // sortedTransactions.sort((a,b) => a.category.localeCompare(b.category))
+
+        sortedTransactions.sort((a,b) => a[type].localeCompare(b[type]))
+          //Update componenet
+        setTransactions(sortedTransactions)
+    }
+  }
+
   {/* Use useEffect to fetch transactions whenever the user loads the App component.Pass the results as from the state as props to transactions to render the table*/}
 
   return (
     <div className='App'>
       {errors.length > 0 ? <p className='text-red-500 font-bold text-2xl'>{errors}</p> : null}
       <h1 className='App-header pt-10'>BANK OF FLATIRON</h1>  
-      <Searchfilter searchFunction={searchTransaction} toggleForm={setToggleForm}/>
+      <Searchfilter searchFunction={searchTransaction} toggleForm={setToggleForm} onSort={handleSort}/>
 
       {toggleForm ? <Formcomponent onAdd={newTransaction} onEdit={handleEdit} editFormData={editFormData} toggleForm={setToggleForm} clearFormData={setEditFormData}/> : null}
 
