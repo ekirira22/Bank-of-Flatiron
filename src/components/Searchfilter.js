@@ -1,23 +1,7 @@
 import {useState} from "react";
 
-function Searchfilter({searchFunction, toggleForm, onSort}){
+function Searchfilter({setSearchValue, setToggleForm, toggleState, onSort}){
 
-    const [searchValue, setSearchValue] = useState('')
-    const [toggleState, setToggleState] = useState(false)
-
-   
-    const handleChange = (e) => {
-            //captures live form input and sets it to searchValue state
-        const value = e.target.value
-        setSearchValue(value)
-            //Passes the value up to the parent .App component
-        searchFunction(searchValue)
-    }
-
-    const toggle = () => {
-        setToggleState(!toggleState)
-        toggleForm(toggleState)
-    }
     // console.log(searchValue)
     
     return (
@@ -25,14 +9,14 @@ function Searchfilter({searchFunction, toggleForm, onSort}){
             <h3>Search Items </h3>
             <div className="mt-5 my-2">
                 <label>
-                    <input type="search" name="date" className="input-form" onChange={handleChange} placeholder="Search by description or category..." value={searchValue}></input>  
+                    <input type="search" name="date" className="input-form" onChange={(e) => setSearchValue(e.target.value.replace(/[^a-zA-Z0-9]/g, '').toLowerCase())} placeholder="Search by description or category..."></input>  
                 </label>
             </div>
             <div className="inline-flex justify-between space-x-4 md:space-x-6">
-                <button className="rounded-full bg-cyan-500 px-3  py-1" onClick={()=> onSort(null)}>Clear Sort</button>
+                <button className="rounded-full bg-cyan-500 px-3  py-1" onClick={()=> onSort('')}>Clear Sort</button>
                 <button className="rounded-full bg-cyan-500 px-3  py-1" onClick={()=> onSort('category')}>Sort By Category</button>
                 <button className="rounded-full bg-cyan-500 px-3  py-1" onClick={()=> onSort('description')}>Sort By Description</button>
-                <button className="rounded-full bg-cyan-500 px-3  py-1" onClick={toggle}>Toggle Form</button>
+                <button className="rounded-full bg-cyan-500 px-3  py-1" onClick={() => setToggleForm(!toggleState)}>Toggle Form</button>
 
             </div>
         </div>
