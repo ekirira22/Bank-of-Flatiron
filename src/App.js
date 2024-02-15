@@ -155,8 +155,6 @@ function App() {
         sortedTransactions.sort((a,b) => a[type].localeCompare(b[type]))
           //Update componenet
         setTransactions(sortedTransactions)
-    }else{
-      setTransactions([...transactions,])
     }
     
   }
