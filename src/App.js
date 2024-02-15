@@ -24,7 +24,8 @@ function App() {
     //Returns a promise
     data.then(data => {
       setTransactions(data)
-    }).then(setLoaded(true))
+      setLoaded(true)
+    })
     },[])
 
     //Fetch Transaction in an asynchronous manner // Modularized function
@@ -159,14 +160,14 @@ function App() {
 
   return (
     <div className='App'>
-      {errors.length > 0 ? <p className='text-red-500 font-bold text-2xl mt-4'>{errors}</p> : null}
+      {errors.length > 0 ? <p className='text-red-500 font-bold text-2xl'>{errors}</p> : null}
       <h1 className='App-header pt-10'>BANK OF FLATIRON</h1>  
       <Searchfilter setSearchValue={setSearchValue} setToggleForm={setToggleForm} toggleState={toggleForm} onSort={handleSort}/>
 
       {toggleForm ? <Formcomponent onAdd={newTransaction} onEdit={handleEdit} editFormData={editFormData} toggleForm={setToggleForm} clearFormData={setEditFormData}/> : null}
 
 
-      {!isLoaded ? <p style={{color: 'green'}} >Loading Transactions ...</p> : <Transactions transactions={filteredTransactions} onDelete={handleDelete} onEdit={findEditData}/>}
+      {!isLoaded ? <p style={{color: 'green'}} className='mt-4'>Loading Transactions ...</p> : <Transactions transactions={filteredTransactions} onDelete={handleDelete} onEdit={findEditData}/>}
       
     </div>
   );
