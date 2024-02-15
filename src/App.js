@@ -152,6 +152,11 @@ function App() {
         sortedTransactions.sort((a,b) => a[type].localeCompare(b[type]))
           //Update componenet
         setTransactions(sortedTransactions)
+    }else{
+      const sortedTransactions = [...transactions]
+        //Resets Transactions by ID
+      sortedTransactions.sort((a,b) => a.id - b.id)
+      setTransactions(sortedTransactions)
     }
     
   }
