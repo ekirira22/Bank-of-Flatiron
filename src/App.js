@@ -6,7 +6,7 @@ import Searchfilter from './components/Searchfilter'
 
 
 function App() {
-  const API = "http://localhost:4000/transactions";
+  const API = "https://transactions-api-rfqa.onrender.com/transactions";
     //State to hold transactions
   const [transactions, setTransactions] = useState([])
   const [isLoaded, setLoaded] = useState(false)
@@ -24,11 +24,7 @@ function App() {
     //Returns a promise
     data.then(data => {
       setTransactions(data)
-          /* Added setTimeout to mimic server loading after 1.5 seconds */
-        setTimeout(()=>{
-          setLoaded(true)
-        }, 1500)
-    })
+    }).then(setLoaded(true))
     },[])
 
     //Fetch Transaction in an asynchronous manner // Modularized function
@@ -163,7 +159,7 @@ function App() {
 
   return (
     <div className='App'>
-      {errors.length > 0 ? <p className='text-red-500 font-bold text-2xl'>{errors}</p> : null}
+      {errors.length > 0 ? <p className='text-red-500 font-bold text-2xl mt-4'>{errors}</p> : null}
       <h1 className='App-header pt-10'>BANK OF FLATIRON</h1>  
       <Searchfilter setSearchValue={setSearchValue} setToggleForm={setToggleForm} toggleState={toggleForm} onSort={handleSort}/>
 

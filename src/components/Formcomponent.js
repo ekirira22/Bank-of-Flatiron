@@ -67,6 +67,15 @@ function Formcomponent ({onAdd, onEdit, editFormData, toggleForm, clearFormData}
         clearFormData({})
     }
 
+    const handleReset = (e) => {
+        setFormData({
+            date : '',
+            description : '',
+            category : '',
+            amount : ''
+        })
+    }
+
     // console.log(formdata)
 
     return (
@@ -87,7 +96,7 @@ function Formcomponent ({onAdd, onEdit, editFormData, toggleForm, clearFormData}
                 <input type="number" name="amount" id="amount" className="input-form" defaultValue={formdata.amount} onChange={handleChange} required /> 
 
                 <br></br>
-                <button type="reset" className="rounded-full bg-yellow-500 px-4 py-1 mt-2 mx-2 text-sm">RESET</button>
+                <button type="reset" className="rounded-full bg-yellow-500 px-4 py-1 mt-2 mx-2 text-sm" onClick={handleReset}>RESET</button>
                 <button type="submit" className="rounded-full bg-cyan-500 px-4 py-1 mt-2 mx-2 text-sm">{editFormData.length > 0 ? "EDIT TRANSACTION" : "ADD TRANSACTION"}</button>
             </form>
         </div>
